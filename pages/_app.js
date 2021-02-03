@@ -1,7 +1,14 @@
-import '../styles/globals.css'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import 'tailwindcss/tailwind.css'
+
+function App({ Component }) {
+  return <Component />
 }
 
-export default MyApp
+App.propTypes = {
+  Component: PropTypes.func.isRequired
+}
+
+export default App

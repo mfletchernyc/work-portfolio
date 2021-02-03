@@ -1,65 +1,74 @@
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import parse from 'html-react-parser'
+import { v4 } from 'uuid'
+
+import headTags from '../config/headTags'
+import { database, opts } from '../config/dbQuery'
 
 export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  const [error, setError] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [portfolio, setportfolio] = useState([])
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+  useEffect(() => {
+    fetch(database, opts)
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          setIsLoaded(true)
+          setportfolio(result)
+        },
+        (err) => {
+          setIsLoaded(true)
+          setError(err)
+        }
+      )
+  }, [])
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+  const content = () => {
+    if (error) {
+      return (
+        <div className="h-screen flex flex-wrap content-center justify-center">
+          Error! {error.message}
         </div>
-      </main>
+      )
+    }
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    if (!isLoaded || portfolio.length === 0) {
+      return (
+        <div className="h-screen flex flex-wrap content-center justify-center">
+          Loading...
+        </div>
+      )
+    }
+
+    return (
+      <div className="flex justify-center">
+        <Head>
+          <title>{portfolio.data.generalSettings.title}</title>
+          {headTags}
+        </Head>
+
+        <main className="sm:max-w-4xl">
+          <h1 className="mx-4 mt-8 text-4xl font-normal">
+            {portfolio.data.generalSettings.title}
+          </h1>
+
+          {portfolio.data.posts.nodes.map((item) => (
+            <div className="mx-4 mt-8 mb-10 p-4 pb-8 sm:px-8 border border-grey-50 shadow-lg" key={v4()}>
+              <h2 className="text-2xl font-normal mb-5 mt-2">{item.title}</h2>
+              {parse(
+                item.content
+                  .replace(/<p>/g, '<p class="mt-4">')
+                  .replace(/<a/g, '<a class="text-blue-slate"')
+              )}
+            </div>
+          ))}
+        </main>
+      </div>
+    )
+  }
+
+  return content()
 }
