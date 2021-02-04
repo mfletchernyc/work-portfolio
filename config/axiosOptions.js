@@ -1,5 +1,3 @@
-const database = 'https://fletcher.nyc/work/graphql'
-
 const query = `
   query {
     generalSettings {
@@ -14,10 +12,11 @@ const query = `
   }
 `
 
-const opts = {
-  method: 'POST',
+const options = {
+  url: 'https://fletcher.nyc/work/graphql',
+  method: 'post',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ query })
+  data: { query }
 }
 
-export { database, opts }
+export default options
