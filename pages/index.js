@@ -11,11 +11,11 @@ import options from '../config/axiosOptions'
 const getPortfolio = async () => axios(options)
   .then((response) => ({
     error: false,
-    portfolio: response.data.data,
+    portfolio: response.data.data
   }))
   .catch((error) => ({
     error: error.toString(),
-    portfolio: null,
+    portfolio: null
   }))
 
 const Portfolio = ({ portfolio, error }) => {

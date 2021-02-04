@@ -20,7 +20,7 @@
     "rules": {
         "semi": ["error", "never"],
         "quotes": ["error", "single"],
-        "comma-dangle": "off",
+        "comma-dangle": ["error", "never"],
         "react/jsx-one-expression-per-line": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
