@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import 'tailwindcss/tailwind.css'
 
-function App({ Component }) {
-  return <Component />
+function Portfolio({ Component, pageProps }) {
+  return <Component {...pageProps} />
 }
 
-App.propTypes = {
+Portfolio.propTypes = {
   Component: PropTypes.func.isRequired
 }
 
-export default App
+export default Portfolio

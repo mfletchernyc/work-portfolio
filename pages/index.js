@@ -29,7 +29,7 @@ export default function Home() {
   const content = () => {
     if (error) {
       return (
-        <div className="h-screen flex flex-wrap content-center justify-center">
+        <div className="content-center flex flex-wrap h-screen justify-center">
           Error! {error.message}
         </div>
       )
@@ -37,29 +37,29 @@ export default function Home() {
 
     if (!isLoaded || portfolio.length === 0) {
       return (
-        <div className="h-screen flex flex-wrap content-center justify-center">
+        <div className="content-center flex flex-wrap h-screen justify-center">
           Loading...
         </div>
       )
     }
 
     return (
-      <div className="flex justify-center">
+      <div className="bg-gray-100 flex justify-center">
         <Head>
           <title>{portfolio.data.generalSettings.title}</title>
           {headTags}
         </Head>
 
         <main className="sm:max-w-4xl">
-          <h1 className="mx-4 mt-8 text-4xl font-normal">
+          <h1 className="font-normal mt-8 mx-4 text-4xl text-blue-slate">
             {portfolio.data.generalSettings.title}
           </h1>
 
           {portfolio.data.posts.nodes.map((item) => (
-            <div className="mx-4 mt-8 mb-10 p-4 pb-8 sm:px-8 border border-grey-50 shadow-lg" key={v4()}>
-              <h2 className="text-2xl font-normal mb-5 mt-2">{item.title}</h2>
+            <div className="bg-gray-200 border mb-10 mt-8 mx-4 p-4 pb-8 sm:px-8 shadow-0" key={v4()}>
+              <h2 className="font-normal mb-5 mt-2 text-2xl text-gray-700">{item.title}</h2>
               {parse(
-                item.content
+                item.content // Keeping things CSS-free...
                   .replace(/<p>/g, '<p class="mt-4">')
                   .replace(/<a/g, '<a class="text-blue-slate"')
               )}
