@@ -43,7 +43,7 @@ const Portfolio = ({ portfolio, error }) => {
           <div className="bg-gray-200 border mb-10 mt-8 mx-4 p-4 pb-8 sm:px-8 shadow-0" key={v4()}>
             <h2 className="font-normal mb-5 mt-2 text-2xl text-gray-700">{item.title}</h2>
             {parse(
-              item.content // Keep things CSS-free. Use Image.
+              item.content // Keep things CSS-free.
                 .replace(/<p>/g, '<p class="mt-4">')
                 .replace(/<a/g, '<a class="text-blue-slate"')
             )}
