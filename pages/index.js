@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
+import Image from 'next/image'
 import parse from 'html-react-parser'
 import axios from 'axios'
 import { v4 } from 'uuid'
@@ -43,9 +44,10 @@ const Portfolio = ({ portfolio, error }) => {
           <div className="bg-gray-200 border mb-10 mt-8 mx-4 p-4 pb-8 sm:px-8 shadow-0" key={v4()}>
             <h2 className="font-normal mb-5 mt-2 text-2xl text-gray-700">{item.title}</h2>
             {parse(
-              item.content // Keeping things CSS-free...
+              item.content // Keep things CSS-free. Use Image.
                 .replace(/<p>/g, '<p class="mt-4">')
                 .replace(/<a/g, '<a class="text-blue-slate"')
+                .replace(/<image/g), '<Image'
             )}
           </div>
         ))}
