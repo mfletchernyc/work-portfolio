@@ -45,7 +45,6 @@ const Portfolio = ({ portfolio, error }) => {
             {parse(
               item.content // Keep things CSS-free.
                 .replace(/<p>/g, '<p class="mt-4">')
-                .replace(/<figure>/g, '<figure class="mt-4">')
                 .replace(/<a/g, '<a class="text-blue-slate"')
             )}
           </div>
