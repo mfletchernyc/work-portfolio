@@ -1,1 +1,1 @@
-Replacement React front end to my WordPress work portfolio built with NextJS. Uses a GraphQL call to the database (via the WP GraphQL API) to server-side render the portfolio. Styling is done with the Tailwind utility-first CSS framework.
+Replacement React front end to my WordPress work portfolio built with NextJS. Uses a GraphQL call to the database (via the WP GraphQL API) to server-side render the portfolio. Styling is done with Tailwind CSS.
